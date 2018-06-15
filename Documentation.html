@@ -1,0 +1,130 @@
+<h1>Documentation</h1>
+<h2>Convention BEM</h2>
+<ul>
+    <li>B → Block</li>
+    <li>E → Element</li>
+    <li>M → Modifier</li>
+</ul>
+<pre><code class="language-html"><span class="hljs-comment">&lt;!-- mainList = Block --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList mainList--xmas"</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- __item = Element --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList__item"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- __itemLink = Element --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList__itemLink mainList__itemLink--isActive"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/home"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- __item = Element --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList__item"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- __itemLink = Element --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList__itemLink"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/home"</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- __item = Element --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList__item"</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- __itemLink = Element --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"mainList__itemLink"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/home"</span>&gt;</span>Works<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<pre><code class="language-scss">.mainList {
+    display: flex;
+    justify-content: space-between;
+    &amp;--xmas {
+        background: green;
+    }
+    &amp;_item {
+        list-style: none;
+    }
+    &amp;__itemLink{
+    color: red;
+      &amp;--isActive {
+        color: white;
+      }
+    }
+}
+</code></pre>
+<p>Exemple en CSS du rendu (en plus chiant) :</p>
+<pre><code class="language-css"><span class="hljs-class">.mainList</span> <span class="hljs-rules">{
+
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.mainList--xmas</span> <span class="hljs-rules">{
+
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.mainList__item</span> <span class="hljs-rules">{
+
+<span class="hljs-rule">}</span></span>
+...
+</code></pre>
+<h2>Pseudo attributs</h2>
+<p>Les pseudo attributs <code>before</code> et <code>after</code> permettent de créer des noeuds HTML en CSS. Ils sont essentiellement utilisés pour ajouter des ornements, des décorations etc. On peut bien entendu faire des animations avec, les positionner
+    par rapport à leur parent (relative / absolute). <strong>Ils doivent obligatoirement avoir un <code>content : ''</code></strong> afin de s'afficher.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"cover"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"cover__mainTitle"</span>&gt;</span>Présentation des pseudo-attributs<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+</code></pre>
+<pre><code class="language-css">.cover {
+    background: #FDFDFD;
+    padding: 20px;
+    &amp;__mainTitle {
+        text-align: center;
+        font-size: 24px;
+        color: green;
+        position: relative;
+        &amp;::before, 
+        &amp;::after {
+            position: absolute;
+            content:'';
+            display: block;
+            width: 50px;
+            height: 50px;
+            background: green;
+            top: 0;
+        }
+        &amp;::before {
+           left: 0;
+        }
+        &amp;::after {
+            right:0;
+        }
+    }
+}
+</code></pre>
+<h2>REM, EM, %, VW Sizing</h2>
+<h3>EM</h3>
+<ul>
+    <li>Relative à la taille de son parent direct.</li>
+</ul>
+<pre><code class="language-css">.cover {
+    font-size: 100%;  /* 100% = 16px */
+    &amp;__mainTitle {
+        /* 1em = 16px / .8em =/= ~ 12.8px */
+        font-size: .8em;
+    }
+}
+</code></pre>
+<h3>REM</h3>
+<ul>
+    <li>Le REM est basé sur la taille de la racine (soit la balise ) qui, par défaut a une valeur de 16px. Afin d'éviter tout calcul, il est nécessaire de l'écraser en donnant une base de 10px soit 62.5%.</li>
+    <li>Le REM est intéressant à utiliser si les media-queries employées sont en rem également. Cela vous permettra de garder des proportions égales lorsqu'on va redimensionner la page.</li>
+    <li>Ses proportions seront également gardées quand l'utilisateur zoomera dans votre page.</li>
+</ul>
+<pre><code class="language-css"><span class="hljs-tag">html</span> <span class="hljs-rules">{
+    <span class="hljs-comment">/* 62.5% = 10px */</span>
+    <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">62.5%</span></span></span>;
+<span class="hljs-rule">}</span></span>
+<span class="hljs-class">.mainTitle</span> <span class="hljs-rules">{
+    <span class="hljs-comment">/* 1.6rem = 16px */</span>
+    <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">1.6rem</span></span></span>;
+    <span class="hljs-comment">/* 32rem = 320px */</span>
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">32rem</span></span></span>;
+<span class="hljs-rule">}</span></span>
+</code></pre>
+<h3>VW(idth) / VH(eight) Sizing</h3>
+<ul>
+    <li>Unités relatives à la taille de votre écran (peu importe le device)</li>
+    <li>Attention au VH et à son contenu. 100vh = 100vh quoi qu'il arrive.</li>
+    <li>VW : très utile pour les interfaces fluides.</li>
+</ul>
+<h2>Liens utiles :</h2>
+<ul>
+    <li>[Caniuse] (https://caniuse.com/) : c'est compatible partout ou pas ?</li>
+</ul>
+<h2>Centrer en 3 lignes de CSS (verticalement)</h2>
